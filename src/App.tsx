@@ -1,17 +1,26 @@
 import React from "react";
 import { ChakraProvider, theme } from "@chakra-ui/react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-
-import LandingLayout from "./components/layouts/LandingLayout";
+import SignUp from "./components/pages/SignUp";
+import { AuthProvider } from "./contexts/AuthContext";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Login from "./components/pages/Login";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
-    <BrowserRouter>
-      <Switch>
-        <Route path="/">
-          <LandingLayout />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Router>
+      <AuthProvider>
+        <Switch>
+          <Route exact path="/">
+            <div>Home</div>
+          </Route>
+          <Route path="/signup">
+            <SignUp />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+        </Switch>
+      </AuthProvider>
+    </Router>
   </ChakraProvider>
 );

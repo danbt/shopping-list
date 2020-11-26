@@ -1,7 +1,9 @@
 import firebase from 'firebase/app';
 import "firebase/database";
+import "firebase/auth";
 
-const config = {
+
+const app = firebase.initializeApp( {
 apiKey: process.env.REACT_APP_APIKEY,
 authDomain: process.env.REACT_APP_AUTHDOMAIN,
 databaseURL: process.env.REACT_APP_DB,
@@ -10,7 +12,8 @@ storageBucket: process.env.REACT_APP_SB,
 messagingSenderId: process.env.REACT_APP_SID,
 appId: process.env.REACT_APP_APPID,
 measurementId:process.env.REACT_APP_MID
-};
-firebase.initializeApp(config);
+});
+
+export const auth = app.auth();
 const databaseRef = firebase.database().ref();
 export const itemsRef = databaseRef.child("items")
