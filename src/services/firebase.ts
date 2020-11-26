@@ -11,7 +11,6 @@ messagingSenderId: process.env.REACT_APP_SID,
 appId: process.env.REACT_APP_APPID,
 measurementId:process.env.REACT_APP_MID
 };
-console.log(config);
 firebase.initializeApp(config);
 const databaseRef = firebase.database().ref();
 export const itemsRef = databaseRef.child("items")

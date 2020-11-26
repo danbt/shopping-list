@@ -22,7 +22,7 @@ const LandingLayout: FC = () => {
           itemName: items[item].itemName,
           itemType: items[item].itemType,
           itemIsChecked: items[item].itemIsChecked,
-          quantityRequired: 1,
+          quantityRequired: items[item].quantityRequired,
         });
       }
       setListItems(newState);

@@ -22,13 +22,13 @@ const ItemCard: FC<IItemCard> = ({ item, deleteItem }) => {
     }
   };
 
-  const updateQuantity = () => {};
+  const updateQuantity = (newQuantity: number) => {
+    itemsRef.child(item.id).set({ ...item, quantityRequired: newQuantity });
+  };
 
   const updateItemIsChecked = (newState: boolean) => {
     itemsRef.child(item.id).set({ ...item, itemIsChecked: newState });
   };
-
-  console.log("is checked", item.itemIsChecked);
 
   return (
     <Box bg="white" p={4} rounded="md" boxShadow="xl" color="black">
@@ -47,7 +47,7 @@ const ItemCard: FC<IItemCard> = ({ item, deleteItem }) => {
           </Checkbox>
         </Box>
         <Box p="2">
-          <QuantityEdit count={item.quantityRequired} />
+          <QuantityEdit count={item.quantityRequired} onChange={(newQuantity) => updateQuantity(newQuantity)} />
         </Box>
         <Box p="2">
           <IconButton
