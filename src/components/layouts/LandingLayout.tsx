@@ -1,15 +1,33 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Center, VStack, Container } from "@chakra-ui/react";
 import ItemCard from "../ui/ItemCard";
 import CreateNewItem from "../ui/CreateNewItem";
 import listItem from "../types/listItem";
+import { itemsRef } from "../../services/firebase";
 
 const LandingLayout: FC = () => {
   const [listItems, setListItems] = useState<listItem[]>([]);
 
-  const removeItemFromList = (index: number) => {
-    setListItems(listItems.filter((item, count) => count !== index));
+  const removeItemFromList = (id: string) => {
+    itemsRef.child(id).remove();
   };
+
+  useEffect(() => {
+    itemsRef.on("value", (snapshot) => {
+      let items: listItem[] = snapshot.val();
+      let newState: listItem[] = [];
+      for (let item in items) {
+        newState.push({
+          id: item,
+          itemName: items[item].itemName,
+          itemType: items[item].itemType,
+          itemIsChecked: items[item].itemIsChecked,
+          quantityRequired: 1,
+        });
+      }
+      setListItems(newState);
+    });
+  }, []);
 
   return (
     <Container width="1200px" alignContent="center" justifyContent="center">
@@ -17,20 +35,14 @@ const LandingLayout: FC = () => {
         <VStack width="100%" spacing={4}>
           <CreateNewItem
             addItemToList={(newItem) => {
-              console.log(newItem);
+              console.log("item", newItem);
               setListItems([...listItems, newItem]);
+              itemsRef.push(newItem);
             }}
           />
           {listItems.map((item, index) => {
             return (
-              <ItemCard
-                key={`${index}.${item.itemName}`}
-                itemName={item.itemName}
-                itemType={item.itemType}
-                itemIsChecked={item.itemIsChecked}
-                quantityRequired={item.quantityRequired}
-                deleteItem={() => removeItemFromList(index)}
-              />
+              <ItemCard key={`${index}.${item.itemName}`} item={item} deleteItem={() => removeItemFromList(item.id)} />
             );
           })}
         </VStack>

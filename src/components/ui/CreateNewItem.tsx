@@ -11,7 +11,11 @@ type Inputs = {
 
 const CreateNewItem: FC<{ addItemToList: (data: listItem) => void }> = ({ addItemToList }) => {
   const { register, handleSubmit, errors } = useForm<Inputs>();
-  const onSubmit = (data: listItem) => addItemToList(data);
+  const onSubmit = (data: listItem) => {
+    data.itemIsChecked = false;
+    data.quantityRequired = 1;
+    addItemToList(data);
+  };
 
   return (
     <Box m="0" p={4}>
