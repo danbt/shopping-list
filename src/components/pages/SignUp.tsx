@@ -13,10 +13,10 @@ import {
   CloseButton,
   VStack,
 } from "@chakra-ui/react";
-import React, { FC, useState, useRef } from "react";
+import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { IFBUser, useAuth } from "../../contexts/AuthContext";
+import { useAuth } from "../../contexts/AuthContext";
 
 type Inputs = {
   email: string;

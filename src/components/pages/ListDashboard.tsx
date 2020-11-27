@@ -5,12 +5,16 @@ import CreateNewItem from "../ui/CreateNewItem";
 import listItem from "../types/listItem";
 import { itemsRef } from "../../services/firebase";
 
-const LandingLayout: FC = () => {
+const ListDashboard: FC = () => {
   const [listItems, setListItems] = useState<listItem[]>([]);
+  const [errorTest, setErrorText] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const removeItemFromList = (id: string) => {
     itemsRef.child(id).remove();
   };
+
+  const handleLogout = () => {};
 
   useEffect(() => {
     itemsRef.on("value", (snapshot) => {
@@ -51,4 +55,4 @@ const LandingLayout: FC = () => {
   );
 };
 
-export default LandingLayout;
+export default ListDashboard;

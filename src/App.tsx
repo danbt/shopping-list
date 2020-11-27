@@ -4,20 +4,24 @@ import SignUp from "./components/pages/SignUp";
 import { AuthProvider } from "./contexts/AuthContext";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Login from "./components/pages/Login";
+import ListDashboard from "./components/pages/ListDashboard";
+import Profile from "./components/pages/Profile";
+import PrivateRoute from "./components/PrivateRoute";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
     <Router>
       <AuthProvider>
         <Switch>
-          <Route exact path="/">
-            <div>Home</div>
-          </Route>
+          <PrivateRoute exact path="/" component={ListDashboard} />
           <Route path="/signup">
             <SignUp />
           </Route>
           <Route path="/login">
             <Login />
+          </Route>
+          <Route path="/profile">
+            <Profile />
           </Route>
         </Switch>
       </AuthProvider>

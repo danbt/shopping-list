@@ -5,6 +5,7 @@ export interface IFBUser {
   loggedInUser: firebase.default.User;
   signUpFn: (email: string, password: string) => Promise<firebase.default.auth.UserCredential>;
   loginFn: (email: string, password: string) => Promise<firebase.default.auth.UserCredential>;
+  logoutFn: () => void;
 }
 
 const AuthContext = React.createContext<IFBUser | null>(null);
@@ -24,6 +25,10 @@ export function AuthProvider({ children }: any) {
     return auth.signInWithEmailAndPassword(email, password);
   }
 
+  function logout() {
+    return auth.signOut();
+  }
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
@@ -37,6 +42,7 @@ export function AuthProvider({ children }: any) {
     loggedInUser: currentUser!,
     signUpFn: (email, password) => signUp(email, password),
     loginFn: (email, password) => login(email, password),
+    logoutFn: () => logout(),
   };
 
   return <AuthContext.Provider value={value}> {children}</AuthContext.Provider>;

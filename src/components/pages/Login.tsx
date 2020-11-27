@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import React, { FC, useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 
 type Inputs = {
@@ -26,11 +27,14 @@ const Login: FC = () => {
   const { register, handleSubmit, errors } = useForm<Inputs>();
   const [errorText, setErrorText] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
   const fbAuth = useAuth();
   const onSubmit = async (data: Inputs) => {
     try {
+      setErrorText("");
       setIsLoading(true);
       await fbAuth?.loginFn(data.email, data.password);
+      history.push("/");
     } catch {
       setErrorText("Could not login user");
     }
@@ -78,6 +82,11 @@ const Login: FC = () => {
           <Button colorScheme="pink" isFullWidth type="submit" disabled={isLoading}>
             Login
           </Button>
+          <Link to="/signup">
+            <Button colorScheme="pink" isFullWidth>
+              Sign up
+            </Button>
+          </Link>
         </form>
       </Center>
     </Container>
