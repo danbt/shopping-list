@@ -14,8 +14,6 @@ const ListDashboard: FC = () => {
     itemsRef.child(id).remove();
   };
 
-  const handleLogout = () => {};
-
   useEffect(() => {
     itemsRef.on("value", (snapshot) => {
       let items: listItem[] = snapshot.val();

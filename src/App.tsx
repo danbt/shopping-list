@@ -7,11 +7,13 @@ import Login from "./components/pages/Login";
 import ListDashboard from "./components/pages/ListDashboard";
 import Profile from "./components/pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
+import Nav from "./components/sections/Nav";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
     <Router>
       <AuthProvider>
+        <Nav />
         <Switch>
           <PrivateRoute exact path="/" component={ListDashboard} />
           <Route path="/signup">
