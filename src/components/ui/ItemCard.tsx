@@ -23,12 +23,10 @@ const ItemCard: FC<IItemCard> = ({ item, deleteItem, currentListId }) => {
   };
 
   const updateQuantity = (newQuantity: number) => {
-    // itemsRef.child(item.id).set({ ...item, quantityRequired: newQuantity });
     databaseRef.child(`lists/${currentListId}/items/${item.id}`).set({ ...item, quantityRequired: newQuantity });
   };
 
   const updateItemIsChecked = (newState: boolean) => {
-    // itemsRef.child(item.id).set({ ...item, itemIsChecked: newState });
     databaseRef.child(`lists/${currentListId}/items/${item.id}`).set({ ...item, itemIsChecked: newState });
   };
 
