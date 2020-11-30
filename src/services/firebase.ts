@@ -15,5 +15,8 @@ measurementId:process.env.REACT_APP_MID
 });
 
 export const auth = app.auth();
-const databaseRef = firebase.database().ref();
+export const databaseRef = firebase.database().ref();
+export const db = firebase.database();
 export const itemsRef = databaseRef.child("items")
+export const usersRef = databaseRef.child("users");
+export const listsRef = databaseRef.child("lists");

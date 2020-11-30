@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import { auth } from "../services/firebase";
+import { auth, db } from "../services/firebase";
 
 export interface IFBUser {
   loggedInUser: firebase.default.User;
-  signUpFn: (email: string, password: string) => Promise<firebase.default.auth.UserCredential>;
+  signUpFn: (email: string, password: string) => Promise<unknown>;
   loginFn: (email: string, password: string) => Promise<firebase.default.auth.UserCredential>;
   logoutFn: () => void;
 }
@@ -18,7 +18,10 @@ export function AuthProvider({ children }: any) {
   const [currentUser, setCurrentUser] = useState<firebase.default.User | null>(null);
 
   function signUp(email: string, password: string) {
-    return auth.createUserWithEmailAndPassword(email, password);
+    return auth.createUserWithEmailAndPassword(email, password).then((cred) => {
+      // return usersRef.("users").doc(cred.user?.uid).set({ test: cred.user?.uid });
+      return db.ref(`users/` + cred.user?.uid).set({ id: cred.user?.uid });
+    });
   }
 
   function login(email: string, password: string) {

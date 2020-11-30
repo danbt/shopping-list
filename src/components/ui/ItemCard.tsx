@@ -4,9 +4,9 @@ import { FaAppleAlt, FaBible, FaBoxOpen, FaSnowflake } from "react-icons/fa";
 import QuantityEdit from "./QuantityEdit";
 import { CloseIcon } from "@chakra-ui/icons";
 import { IItemCard, itemType } from "../types/listItem";
-import { itemsRef } from "../../services/firebase";
+import { databaseRef, itemsRef } from "../../services/firebase";
 
-const ItemCard: FC<IItemCard> = ({ item, deleteItem }) => {
+const ItemCard: FC<IItemCard> = ({ item, deleteItem, currentListId }) => {
   const returnIcon = (itemType: itemType): JSX.Element => {
     switch (itemType) {
       case "Fresh":
@@ -23,11 +23,13 @@ const ItemCard: FC<IItemCard> = ({ item, deleteItem }) => {
   };
 
   const updateQuantity = (newQuantity: number) => {
-    itemsRef.child(item.id).set({ ...item, quantityRequired: newQuantity });
+    // itemsRef.child(item.id).set({ ...item, quantityRequired: newQuantity });
+    databaseRef.child(`lists/${currentListId}/items/${item.id}`).set({ ...item, quantityRequired: newQuantity });
   };
 
   const updateItemIsChecked = (newState: boolean) => {
-    itemsRef.child(item.id).set({ ...item, itemIsChecked: newState });
+    // itemsRef.child(item.id).set({ ...item, itemIsChecked: newState });
+    databaseRef.child(`lists/${currentListId}/items/${item.id}`).set({ ...item, itemIsChecked: newState });
   };
 
   return (
