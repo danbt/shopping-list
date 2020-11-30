@@ -31,37 +31,44 @@ const ItemCard: FC<IItemCard> = ({ item, deleteItem, currentListId }) => {
   };
 
   return (
-    <Box bg="white" p={4} rounded="md" boxShadow="xl" color="black">
-      <Flex align="center" justify="center">
-        <Box p="2">
-          <IconButton size="lg" aria-label="Item type icon" icon={returnIcon(item.itemType)} isRound />
-        </Box>
-        <Box p="2">
-          <Checkbox
-            defaultChecked={item.itemIsChecked}
-            isChecked={item.itemIsChecked}
-            colorScheme="gray"
-            onChange={(e) => updateItemIsChecked(e.target.checked)}
-          >
-            <Heading size="md">{item.itemName}</Heading>
-          </Checkbox>
-        </Box>
-        <Box p="2">
-          <QuantityEdit count={item.quantityRequired} onChange={(newQuantity) => updateQuantity(newQuantity)} />
-        </Box>
-        <Box p="2">
-          <IconButton
-            size="sm"
-            color="red.500"
-            bg="red.100"
-            aria-label="Delete item"
-            icon={<CloseIcon />}
-            isRound
-            onClick={() => deleteItem()}
-          />
-        </Box>
-      </Flex>
-    </Box>
+    <Flex
+      bg={item.itemIsChecked ? "green.100" : "white"}
+      p={4}
+      rounded="md"
+      boxShadow="xl"
+      color="black"
+      maxW="400px"
+      justify="center"
+      align="center"
+    >
+      <Box p="2">
+        <IconButton size="lg" aria-label="Item type icon" icon={returnIcon(item.itemType)} isRound />
+      </Box>
+      <Box p="2">
+        <Checkbox
+          defaultChecked={item.itemIsChecked}
+          isChecked={item.itemIsChecked}
+          colorScheme="gray"
+          onChange={(e) => updateItemIsChecked(e.target.checked)}
+        >
+          <Heading size="md">{item.itemName}</Heading>
+        </Checkbox>
+      </Box>
+      <Box p="2">
+        <QuantityEdit count={item.quantityRequired} onChange={(newQuantity) => updateQuantity(newQuantity)} />
+      </Box>
+      <Box p="2">
+        <IconButton
+          size="sm"
+          color="red.500"
+          bg="red.100"
+          aria-label="Delete item"
+          icon={<CloseIcon />}
+          isRound
+          onClick={() => deleteItem()}
+        />
+      </Box>
+    </Flex>
   );
 };
 

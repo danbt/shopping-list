@@ -18,7 +18,7 @@ const Nav = () => {
   };
 
   return (
-    <Flex align="center" p="2" m="2" justify="center" bg="pink.400">
+    <Flex align="center" p="2" m="2" justify="center" bg="teal.400">
       <Box p="2">
         <Link to="/">
           <IconButton bg="gray.200" color="pink.400" size="lg" aria-label="Item type icon" icon={<FiShoppingCart />} />

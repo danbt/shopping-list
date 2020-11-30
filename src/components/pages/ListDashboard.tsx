@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Center, VStack, Container } from "@chakra-ui/react";
+import { VStack, Box } from "@chakra-ui/react";
 import ItemCard from "../ui/ItemCard";
 import CreateNewItem from "../ui/CreateNewItem";
 import listItem from "../types/listItem";
@@ -89,18 +89,19 @@ const ListDashboard: FC = () => {
   }, [currentList, fbAuth?.loggedInUser.uid]);
 
   return (
-    <Container width="1200px" alignContent="center" justifyContent="center">
-      <Center bg="gray.300" color="white" rounded="lg">
-        <VStack spacing={4}>
-          <CreateNewList createNewList={(newName) => createNewList(newName)} />
-          <SelectList lists={userLists} updateSelection={(selectedList) => setCurrentList(selectedList)} />
-          <CreateNewItem
-            addItemToList={(newItem) => {
-              setListItems([...listItems, newItem]);
-              databaseRef.child(`lists/${currentList}/items`).push(newItem);
-            }}
-          />
+    <Box p="2" minWidth="50%" maxWidth="75%" marginX="auto">
+      <CreateNewList createNewList={(newName) => createNewList(newName)} />
+      <SelectList lists={userLists} updateSelection={(selectedList) => setCurrentList(selectedList)} />
 
+      <Box bg="gray.50" height="75vh" m="1">
+        <CreateNewItem
+          addItemToList={(newItem) => {
+            setListItems([...listItems, newItem]);
+            databaseRef.child(`lists/${currentList}/items`).push(newItem);
+          }}
+        />
+
+        <VStack justifyContent="center">
           {listItems.map((item, index) => {
             return (
               <ItemCard
@@ -112,8 +113,8 @@ const ListDashboard: FC = () => {
             );
           })}
         </VStack>
-      </Center>
-    </Container>
+      </Box>
+    </Box>
   );
 };
 
