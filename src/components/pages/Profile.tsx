@@ -10,6 +10,7 @@ import {
   AlertIcon,
   AlertTitle,
   CloseButton,
+  CircularProgress,
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
@@ -32,6 +33,10 @@ const Profile: FC = () => {
     }
     setIsLoading(false);
   };
+
+  if (isLoading) {
+    return <CircularProgress isIndeterminate />;
+  }
 
   if (inEditMode) {
     return (

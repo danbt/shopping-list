@@ -1,10 +1,10 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC } from "react";
 import { Box, IconButton, Checkbox, Heading, Flex } from "@chakra-ui/react";
 import { FaAppleAlt, FaBible, FaBoxOpen, FaSnowflake } from "react-icons/fa";
 import QuantityEdit from "./QuantityEdit";
 import { CloseIcon } from "@chakra-ui/icons";
 import { IItemCard, itemType } from "../types/listItem";
-import { databaseRef, itemsRef } from "../../services/firebase";
+import { databaseRef } from "../../services/firebase";
 
 const ItemCard: FC<IItemCard> = ({ item, deleteItem, currentListId }) => {
   const returnIcon = (itemType: itemType): JSX.Element => {

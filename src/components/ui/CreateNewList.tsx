@@ -1,5 +1,5 @@
 import React, { FC, useRef } from "react";
-import { Box, Button, FormControl, FormHelperText, FormLabel, Input, VStack } from "@chakra-ui/react";
+import { Box, Button, FormControl, FormLabel, Input, VStack } from "@chakra-ui/react";
 
 const CreateNewList: FC<{ createNewList: (newName: string) => void }> = ({ createNewList }) => {
   const listNameRef = useRef<HTMLInputElement>(null);
