@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { VStack, Box, Button, Flex } from "@chakra-ui/react";
+import { VStack, Box, Container, Flex, Center } from "@chakra-ui/react";
 import ItemCard from "../ui/ItemCard";
 import CreateNewItem from "../ui/CreateNewItem";
 import listItem from "../types/listItem";
@@ -90,43 +90,47 @@ const ListDashboard: FC = () => {
   }, [appState, fbAuth?.loggedInUser.uid]);
 
   return (
-    <Box height="90vh" position="relative">
-      <Box p="1" bg="white" marginBottom="0" roundedBottom="xl" boxShadow="md" zIndex="1000" position="relative">
-        <CreateNewList createNewList={(newName) => createNewList(newName)} />
-        <SelectList lists={userLists} />
-      </Box>
-      <Flex
-        bg="gray.100"
-        direction="column"
-        height="100%"
-        position="absolute"
-        top="100"
-        left="0"
-        zIndex="500"
-        width="100%"
-      >
-        <VStack justifyContent="center">
-          <CreateNewItem
-            addItemToList={(newItem) => {
-              setListItems([...listItems, newItem]);
-              if (appState?.getSelectedList()) {
-                databaseRef.child(`lists/${appState?.getSelectedList()}/items`).push(newItem);
-              }
-            }}
-          />
-          {listItems.map((item, index) => {
-            return (
-              <ItemCard
-                key={`${index}.${item.itemName}`}
-                item={item}
-                deleteItem={() => removeItemFromList(item.id)}
-                currentListId={appState?.getSelectedList() ?? ""}
+    <Center>
+      <Container maxW="3xl" mx="0" px="0">
+        <Box height="90vh" position="relative">
+          <Box p="1" bg="white" marginBottom="0" roundedBottom="xl" boxShadow="md" zIndex="1000" position="relative">
+            <CreateNewList createNewList={(newName) => createNewList(newName)} />
+            <SelectList lists={userLists} />
+          </Box>
+          <Flex
+            bg="gray.100"
+            direction="column"
+            height="100%"
+            position="absolute"
+            top="100"
+            left="0"
+            zIndex="500"
+            width="100%"
+          >
+            <VStack justifyContent="center">
+              <CreateNewItem
+                addItemToList={(newItem) => {
+                  setListItems([...listItems, newItem]);
+                  if (appState?.getSelectedList()) {
+                    databaseRef.child(`lists/${appState?.getSelectedList()}/items`).push(newItem);
+                  }
+                }}
               />
-            );
-          })}
-        </VStack>
-      </Flex>
-    </Box>
+              {listItems.map((item, index) => {
+                return (
+                  <ItemCard
+                    key={`${index}.${item.itemName}`}
+                    item={item}
+                    deleteItem={() => removeItemFromList(item.id)}
+                    currentListId={appState?.getSelectedList() ?? ""}
+                  />
+                );
+              })}
+            </VStack>
+          </Flex>
+        </Box>
+      </Container>
+    </Center>
   );
 };
 

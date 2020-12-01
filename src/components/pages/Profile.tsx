@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import {
   Center,
+  Box,
   VStack,
   Container,
   Heading,
@@ -11,10 +12,12 @@ import {
   AlertTitle,
   CloseButton,
   CircularProgress,
+  HStack,
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
 import { useAppState } from "../../contexts/AppStateContext";
+import Template from "../sections/Template";
 
 const Profile: FC = () => {
   const [errorText, setErrorText] = useState("");
@@ -46,45 +49,37 @@ const Profile: FC = () => {
 
   if (inEditMode) {
     return (
-      <Container width="1200px" alignContent="center" justifyContent="center">
-        <Center bg="gray.300" color="white" rounded="lg">
-          <VStack width="100%" spacing={4}>
-            {errorText && (
-              <Alert status="error">
-                <AlertIcon />
-                <AlertTitle mr={2}>Oh no!</AlertTitle>
-                <AlertDescription>{errorText}</AlertDescription>
-                <CloseButton position="absolute" right="8px" top="8px" />
-              </Alert>
-            )}
-            <Heading>Profile</Heading>
-            <Heading> {fbAuth?.loggedInUser && fbAuth.loggedInUser.email}</Heading>
-            <Button onClick={() => setInEditMode(false)}>Cancel</Button>
-            <Button onClick={() => console.log("save")}>Save</Button>
-            <Button
-              variant="solid"
-              colorScheme="brandYellow"
-              onClick={() => appState?.setAvatarSrc(getRandomAvatarSeed())}
-            >
-              Randomise Avatar
-            </Button>
-          </VStack>
-        </Center>
-      </Container>
+      <Template title="My Profile">
+        <HStack spacing={3} align="center" justify="center">
+          <Button variant="outline" colorScheme="brandYellow" minWidth="100px" onClick={() => setInEditMode(false)}>
+            Cancel
+          </Button>
+          <Button variant="solid" colorScheme="brandRed" minWidth="100px" onClick={() => console.log("SAVE")}>
+            Save
+          </Button>
+        </HStack>
+      </Template>
     );
   }
-
   return (
-    <Container width="1200px" alignContent="center" justifyContent="center">
-      <Center bg="gray.300" color="white" rounded="lg">
-        <VStack width="100%" spacing={4}>
-          <Heading>Profile</Heading>
-          <Heading> {fbAuth?.loggedInUser && fbAuth.loggedInUser.email}</Heading>
-          <Button onClick={() => handleLogout()}>Log out</Button>
-          <Button onClick={() => setInEditMode(true)}>Edit profile</Button>
-        </VStack>
-      </Center>
-    </Container>
+    <Template title="My Profile">
+      <VStack width="100%" spacing={3}>
+        <Button variant="solid" colorScheme="brandYellow" minWidth="200px" onClick={() => setInEditMode(true)}>
+          Edit profile
+        </Button>
+        <Button
+          variant="solid"
+          colorScheme="brandYellow"
+          minWidth="200px"
+          onClick={() => appState?.setAvatarSrc(getRandomAvatarSeed())}
+        >
+          Randomise Avatar
+        </Button>
+        <Button variant="solid" colorScheme="brandOrange" minWidth="200px" onClick={() => handleLogout()}>
+          Log out
+        </Button>
+      </VStack>
+    </Template>
   );
 };
 

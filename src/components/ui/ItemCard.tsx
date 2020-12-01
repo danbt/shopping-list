@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Box, IconButton, Checkbox, Heading, Flex, VStack, Text, Spacer } from "@chakra-ui/react";
+import { Box, IconButton, Checkbox, Heading, Flex, VStack, Text, Spacer, HStack } from "@chakra-ui/react";
 import { FaAppleAlt, FaBible, FaBoxOpen, FaSnowflake } from "react-icons/fa";
 import QuantityEdit from "./QuantityEdit";
 import { CloseIcon } from "@chakra-ui/icons";
@@ -44,15 +44,7 @@ const ItemCard: FC<IItemCard> = ({ item, deleteItem, currentListId }) => {
   };
 
   return (
-    <Flex
-      bg={item.itemIsChecked ? "green.100" : "white"}
-      p={2}
-      rounded="md"
-      boxShadow="xl"
-      minW="250px"
-      align="center"
-      justify="flex-start"
-    >
+    <HStack bg={"white"} p={2} rounded="md" boxShadow="xl" minW="250px" align="center" justifyContent="space-around">
       <Box
         width="1"
         height="100%"
@@ -64,19 +56,25 @@ const ItemCard: FC<IItemCard> = ({ item, deleteItem, currentListId }) => {
         ,
       </Box>
 
-      <Box>
-        <VStack justifyContent="flex-start" textAlign="left" align="left">
-          <Heading color="brandBlue.500" fontSize="md">
-            {item.itemName}
-          </Heading>
-          <Text as="i" fontSize="xs" color="gray.400">
-            {item.itemType}
-          </Text>
-        </VStack>
-      </Box>
+      <VStack justifyContent="flex-start" textAlign="left" align="left" minWidth="75px">
+        <Heading color="brandBlue.500" fontSize="md">
+          {item.itemName}
+        </Heading>
+        <Text as="i" fontSize="xs" color="gray.400">
+          {item.itemType}
+        </Text>
+      </VStack>
+
+      <QuantityEdit count={item.quantityRequired} onChange={(newQuantity) => updateQuantity(newQuantity)} />
       <Spacer />
-      <Box>Checkbox</Box>
-    </Flex>
+      <Checkbox
+        mr="3"
+        defaultChecked={item.itemIsChecked}
+        isChecked={item.itemIsChecked}
+        colorScheme="brandOrange"
+        onChange={(e) => updateItemIsChecked(e.target.checked)}
+      />
+    </HStack>
   );
 
   // return (
