@@ -54,41 +54,42 @@ const Login: FC = () => {
         )}
         {fbAuth?.loggedInUser && <div>{fbAuth.loggedInUser.email}</div>}
       </VStack>
-      <Center>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <FormControl id="email-address" isRequired>
-            <FormLabel>Email address</FormLabel>
-            <Input
-              colorScheme="pink"
-              name="email"
-              ref={register({ required: true })}
-              placeholder="Email..."
-              disabled={isLoading}
-            />
-            <FormHelperText>{errors.email && <span>Email is required.</span>}</FormHelperText>
-          </FormControl>
-          <FormControl id="password" isRequired>
-            <FormLabel>Password</FormLabel>
-            <Input
-              colorScheme="pink"
-              name="password"
-              ref={register({ required: true })}
-              type="password"
-              disabled={isLoading}
-            />
-            <FormHelperText>{errors.password && <span>Password is required.</span>}</FormHelperText>
-          </FormControl>
 
-          <Button colorScheme="pink" isFullWidth type="submit" disabled={isLoading}>
-            Login
-          </Button>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormControl id="email-address" isRequired>
+          <FormLabel>Email address</FormLabel>
+          <Input
+            colorScheme="brand"
+            name="email"
+            ref={register({ required: true })}
+            placeholder="Email..."
+            disabled={isLoading}
+          />
+          <FormHelperText>{errors.email && <span>Email is required.</span>}</FormHelperText>
+        </FormControl>
+        <FormControl id="password" isRequired>
+          <FormLabel>Password</FormLabel>
+          <Input
+            colorScheme="brand"
+            name="password"
+            ref={register({ required: true })}
+            type="password"
+            disabled={isLoading}
+          />
+          <FormHelperText>{errors.password && <span>Password is required.</span>}</FormHelperText>
+        </FormControl>
+
+        <Button colorScheme="brand" isFullWidth type="submit" disabled={isLoading}>
+          Login
+        </Button>
+        <Center mt="1">
           <Link to="/signup">
-            <Button colorScheme="pink" isFullWidth>
+            <Button variant="link" colorScheme="brand">
               Sign up
             </Button>
           </Link>
-        </form>
-      </Center>
+        </Center>
+      </form>
     </Container>
   );
 };

@@ -3,10 +3,12 @@ import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { FiShoppingCart } from "react-icons/fi";
+import { useAppState } from "../../contexts/AppStateContext";
 
 const Nav = () => {
   const fbAuth = useAuth();
   const history = useHistory();
+  const appState = useAppState();
 
   const handleLogout = async () => {
     try {
@@ -17,13 +19,18 @@ const Nav = () => {
     }
   };
 
-  useEffect(() => {}, [fbAuth]);
-
   return (
-    <Flex align="center" p="2" m="2" justify="center" bg="teal.400">
+    <Flex align="center" p="1" m="1" mb="0" justify="center" bg="brandGreen.500">
       <Box p="2">
         <Link to="/">
-          <IconButton bg="gray.200" color="pink.400" size="lg" aria-label="Item type icon" icon={<FiShoppingCart />} />
+          <IconButton
+            bg="brandGreen.900"
+            color="brandOrange.500"
+            size="lg"
+            aria-label="Item type icon"
+            icon={<FiShoppingCart />}
+            isRound
+          />
         </Link>
       </Box>
       <Spacer />
@@ -31,18 +38,18 @@ const Nav = () => {
         {!fbAuth?.loggedInUser ? (
           <>
             <Link to="/login">
-              <Button m="2" variant="solid" colorScheme="pink">
+              <Button m="2" variant="outline" colorScheme="brandOrange">
                 Login
               </Button>
             </Link>
             <Link to="/signup">
-              <Button m="2" variant="solid" colorScheme="pink">
+              <Button m="2" variant="solid" colorScheme="brand">
                 Sign up
               </Button>
             </Link>
           </>
         ) : (
-          <Button m="2" variant="solid" colorScheme="pink" onClick={() => handleLogout()}>
+          <Button m="2" variant="solid" colorScheme="brandOrange" onClick={() => handleLogout()}>
             Logout
           </Button>
         )}
@@ -51,6 +58,7 @@ const Nav = () => {
             m="2"
             name={(fbAuth?.loggedInUser && fbAuth.loggedInUser.displayName) ?? "Not suppled"}
             bg="gray.200"
+            src={`https://avatars.dicebear.com/api/avataaars/:${appState?.getAvatarSrc()}.svg`}
           />
         </Link>
       </Flex>

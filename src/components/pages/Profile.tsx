@@ -14,6 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { useAuth } from "../../contexts/AuthContext";
 import { useHistory } from "react-router-dom";
+import { useAppState } from "../../contexts/AppStateContext";
 
 const Profile: FC = () => {
   const [errorText, setErrorText] = useState("");
@@ -21,6 +22,7 @@ const Profile: FC = () => {
   const fbAuth = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
+  const appState = useAppState();
 
   const handleLogout = async () => {
     try {
@@ -32,6 +34,10 @@ const Profile: FC = () => {
       setErrorText("Could not logout user");
     }
     setIsLoading(false);
+  };
+
+  const getRandomAvatarSeed = () => {
+    return (Math.random() * (10000 - 1) + 1).toString();
   };
 
   if (isLoading) {
@@ -55,6 +61,13 @@ const Profile: FC = () => {
             <Heading> {fbAuth?.loggedInUser && fbAuth.loggedInUser.email}</Heading>
             <Button onClick={() => setInEditMode(false)}>Cancel</Button>
             <Button onClick={() => console.log("save")}>Save</Button>
+            <Button
+              variant="solid"
+              colorScheme="brandYellow"
+              onClick={() => appState?.setAvatarSrc(getRandomAvatarSeed())}
+            >
+              Randomise Avatar
+            </Button>
           </VStack>
         </Center>
       </Container>

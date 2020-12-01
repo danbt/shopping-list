@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { VStack, Box } from "@chakra-ui/react";
+import { VStack, Box, Button, Flex } from "@chakra-ui/react";
 import ItemCard from "../ui/ItemCard";
 import CreateNewItem from "../ui/CreateNewItem";
 import listItem from "../types/listItem";
@@ -90,21 +90,30 @@ const ListDashboard: FC = () => {
   }, [appState, fbAuth?.loggedInUser.uid]);
 
   return (
-    <Box p="2" minWidth="50%" maxWidth="75%" marginX="auto">
-      <CreateNewList createNewList={(newName) => createNewList(newName)} />
-      <SelectList lists={userLists} />
-
-      <Box bg="gray.50" height="75vh" m="1">
-        <CreateNewItem
-          addItemToList={(newItem) => {
-            setListItems([...listItems, newItem]);
-            if (appState?.getSelectedList()) {
-              databaseRef.child(`lists/${appState?.getSelectedList()}/items`).push(newItem);
-            }
-          }}
-        />
-
+    <Box height="90vh" position="relative">
+      <Box p="1" bg="white" marginBottom="0" roundedBottom="xl" boxShadow="md" zIndex="1000" position="relative">
+        <CreateNewList createNewList={(newName) => createNewList(newName)} />
+        <SelectList lists={userLists} />
+      </Box>
+      <Flex
+        bg="gray.100"
+        direction="column"
+        height="100%"
+        position="absolute"
+        top="100"
+        left="0"
+        zIndex="500"
+        width="100%"
+      >
         <VStack justifyContent="center">
+          <CreateNewItem
+            addItemToList={(newItem) => {
+              setListItems([...listItems, newItem]);
+              if (appState?.getSelectedList()) {
+                databaseRef.child(`lists/${appState?.getSelectedList()}/items`).push(newItem);
+              }
+            }}
+          />
           {listItems.map((item, index) => {
             return (
               <ItemCard
@@ -116,7 +125,7 @@ const ListDashboard: FC = () => {
             );
           })}
         </VStack>
-      </Box>
+      </Flex>
     </Box>
   );
 };

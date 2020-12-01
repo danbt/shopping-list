@@ -1,26 +1,17 @@
 import React, { FC, useRef } from "react";
-import { Box, Button, FormControl, FormLabel, Input, VStack } from "@chakra-ui/react";
+import { Button, HStack, Input } from "@chakra-ui/react";
 
 const CreateNewList: FC<{ createNewList: (newName: string) => void }> = ({ createNewList }) => {
   const listNameRef = useRef<HTMLInputElement>(null);
 
   return (
-    <Box p={1}>
-      <VStack spacing="4">
-        <FormControl id="listName">
-          <FormLabel>List name</FormLabel>
-          <Input name="listName" ref={listNameRef} placeholder="enter a name..." isRequired />
-        </FormControl>
+    <HStack p={1} direction="row" spacing="2" align="flex-end" justify="center">
+      <Input variant="outline" name="listName" ref={listNameRef} placeholder="create a new list..." />
 
-        <Button
-          variant="outline"
-          colorScheme="teal"
-          onClick={() => createNewList(listNameRef.current?.value ?? "Unset List Name")}
-        >
-          Create new list
-        </Button>
-      </VStack>
-    </Box>
+      <Button variant="solid" onClick={() => createNewList(listNameRef.current?.value ?? "Unset List Name")}>
+        +
+      </Button>
+    </HStack>
   );
 };
 

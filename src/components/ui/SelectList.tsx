@@ -9,7 +9,11 @@ const SelectList: FC<{ lists: Partial<IList>[] }> = ({ lists }) => {
 
   return (
     <Box p={1}>
-      <Select placeholder="Select an available list" onChange={(e) => appState?.setSelectedList(e.target.value)}>
+      <Select
+        variant="outline"
+        placeholder="current list..."
+        onChange={(e) => appState?.setSelectedList(e.target.value)}
+      >
         {lists.map((list, index) => {
           return (
             <option key={`${list.id}.${index}`} value={list.id}>
