@@ -8,24 +8,27 @@ import ListDashboard from "./components/pages/ListDashboard";
 import Profile from "./components/pages/Profile";
 import PrivateRoute from "./components/PrivateRoute";
 import Nav from "./components/sections/Nav";
+import AppStateContext from "./contexts/AppStateContext";
 
 export const App = () => (
   <ChakraProvider theme={theme}>
     <Router>
       <AuthProvider>
-        <Nav />
-        <Switch>
-          <PrivateRoute exact path="/" component={ListDashboard} />
-          <Route path="/signup">
-            <SignUp />
-          </Route>
-          <Route path="/login">
-            <Login />
-          </Route>
-          <Route path="/profile">
-            <Profile />
-          </Route>
-        </Switch>
+        <AppStateContext>
+          <Nav />
+          <Switch>
+            <PrivateRoute exact path="/" component={ListDashboard} />
+            <Route path="/signup">
+              <SignUp />
+            </Route>
+            <Route path="/login">
+              <Login />
+            </Route>
+            <Route path="/profile">
+              <Profile />
+            </Route>
+          </Switch>
+        </AppStateContext>
       </AuthProvider>
     </Router>
   </ChakraProvider>

@@ -8,16 +8,17 @@ import { useAuth } from "../../contexts/AuthContext";
 import IList from "../types/list";
 import SelectList from "../ui/SelectList";
 import CreateNewList from "../ui/CreateNewList";
+import { useAppState } from "../../contexts/AppStateContext";
 
 const ListDashboard: FC = () => {
   const [listItems, setListItems] = useState<listItem[]>([]);
-  const [currentList, setCurrentList] = useState("");
   const [userLists, setUserLists] = useState<Partial<IList>[]>([]);
   const fbAuth = useAuth();
+  const appState = useAppState();
 
   const removeItemFromList = async (id: string) => {
     try {
-      await databaseRef.child(`lists/${currentList}/items/${id}`).remove();
+      await databaseRef.child(`lists/${appState?.getSelectedList()}/items/${id}`).remove();
     } catch (e) {
       throw new Error(e);
     }
@@ -31,7 +32,7 @@ const ListDashboard: FC = () => {
         createdBy: fbAuth?.loggedInUser.uid,
         users: [fbAuth?.loggedInUser.uid],
       });
-      setCurrentList(list.key ?? "unset");
+      appState?.setSelectedList(list.key ?? "unset");
     } catch (e) {
       throw new Error(e);
     }
@@ -40,7 +41,7 @@ const ListDashboard: FC = () => {
   useEffect(() => {
     const getActiveListItems = () => {
       try {
-        databaseRef.child(`lists/${currentList}/items`).on("value", (snapshot) => {
+        databaseRef.child(`lists/${appState?.getSelectedList()}/items`).on("value", (snapshot) => {
           let items: listItem[] = snapshot.val();
           let newState: listItem[] = [];
           for (let item in items) {
@@ -84,20 +85,22 @@ const ListDashboard: FC = () => {
 
     return () => {
       listsRef.off();
-      databaseRef.child(`lists/${currentList}/items`).off();
+      databaseRef.child(`lists/${appState?.getSelectedList()}/items`).off();
     };
-  }, [currentList, fbAuth?.loggedInUser.uid]);
+  }, [appState, fbAuth?.loggedInUser.uid]);
 
   return (
     <Box p="2" minWidth="50%" maxWidth="75%" marginX="auto">
       <CreateNewList createNewList={(newName) => createNewList(newName)} />
-      <SelectList lists={userLists} updateSelection={(selectedList) => setCurrentList(selectedList)} />
+      <SelectList lists={userLists} />
 
       <Box bg="gray.50" height="75vh" m="1">
         <CreateNewItem
           addItemToList={(newItem) => {
             setListItems([...listItems, newItem]);
-            databaseRef.child(`lists/${currentList}/items`).push(newItem);
+            if (appState?.getSelectedList()) {
+              databaseRef.child(`lists/${appState?.getSelectedList()}/items`).push(newItem);
+            }
           }}
         />
 
@@ -108,7 +111,7 @@ const ListDashboard: FC = () => {
                 key={`${index}.${item.itemName}`}
                 item={item}
                 deleteItem={() => removeItemFromList(item.id)}
-                currentListId={currentList}
+                currentListId={appState?.getSelectedList() ?? ""}
               />
             );
           })}

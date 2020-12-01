@@ -10,11 +10,12 @@ type Inputs = {
 };
 
 const CreateNewItem: FC<{ addItemToList: (data: listItem) => void }> = ({ addItemToList }) => {
-  const { register, handleSubmit, errors } = useForm<Inputs>();
+  const { register, handleSubmit, errors, reset } = useForm<Inputs>();
   const onSubmit = (data: listItem) => {
     data.itemIsChecked = false;
     data.quantityRequired = 1;
     addItemToList(data);
+    reset();
   };
 
   return (

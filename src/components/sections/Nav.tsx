@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Flex, IconButton, Spacer } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { FiShoppingCart } from "react-icons/fi";
@@ -16,6 +16,8 @@ const Nav = () => {
       throw new Error();
     }
   };
+
+  useEffect(() => {}, [fbAuth]);
 
   return (
     <Flex align="center" p="2" m="2" justify="center" bg="teal.400">
@@ -44,7 +46,13 @@ const Nav = () => {
             Logout
           </Button>
         )}
-        <Avatar m="2" name={(fbAuth?.loggedInUser && fbAuth.loggedInUser.displayName) ?? "Not suppled"} bg="gray.200" />
+        <Link to="/profile">
+          <Avatar
+            m="2"
+            name={(fbAuth?.loggedInUser && fbAuth.loggedInUser.displayName) ?? "Not suppled"}
+            bg="gray.200"
+          />
+        </Link>
       </Flex>
     </Flex>
   );

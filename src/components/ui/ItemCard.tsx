@@ -37,7 +37,7 @@ const ItemCard: FC<IItemCard> = ({ item, deleteItem, currentListId }) => {
       rounded="md"
       boxShadow="xl"
       color="black"
-      maxW="400px"
+      maxW="350px"
       justify="center"
       align="center"
     >
