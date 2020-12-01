@@ -19,6 +19,10 @@ const Nav = () => {
     }
   };
 
+  useEffect(() => {
+    console.log(appState?.getAvatarSrc());
+  }, []);
+
   return (
     <Center>
       <Container maxW="3xl" mx="0" px="0">
@@ -58,8 +62,8 @@ const Nav = () => {
             <Link to="/profile">
               <Avatar
                 m="2"
-                name={(fbAuth?.loggedInUser && fbAuth.loggedInUser.displayName) ?? "Not suppled"}
                 bg="gray.200"
+                name="Not supplied"
                 src={`https://avatars.dicebear.com/api/avataaars/:${appState?.getAvatarSrc()}.svg`}
               />
             </Link>

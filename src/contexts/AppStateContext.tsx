@@ -15,9 +15,7 @@ export function useAppState() {
 
 const AppStateContextProvider = ({ children }: any) => {
   const [selectedListState, setSelectedListState] = useState("");
-  const [avatarSrcState, setAvatarSrcState] = useState(
-    `https://avatars.dicebear.com/api/avataaars/:${Math.random() * (10000 - 1) + 1}.svg`
-  );
+  const [avatarSrcState, setAvatarSrcState] = useState("Barry");
 
   function getSelectedList() {
     return selectedListState;
