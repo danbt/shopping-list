@@ -5,13 +5,11 @@ import { useAppState } from "../../contexts/AppStateContext";
 const SelectList: FC<{ lists: Partial<IList>[] }> = ({ lists }) => {
   const appState = useAppState();
 
-  console.log(appState?.getSelectedList());
-
   return (
     <Box p={1}>
       <Select
         variant="outline"
-        placeholder="current list..."
+        placeholder="select a list..."
         onChange={(e) => appState?.setSelectedList(e.target.value)}
       >
         {lists.map((list, index) => {
