@@ -45,9 +45,9 @@ const ItemCard: FC<IItemCard> = ({ item, deleteItem, currentListId }) => {
 
   return (
     <Box position="relative">
-      <HStack bg={"white"} p={2} rounded="md" boxShadow="xl" minW="250px" align="center" justifyContent="space-around">
+      <HStack bg={"white"} p={2} rounded="md" boxShadow="xl" minW="350px" align="center" justifyContent="left">
         <Checkbox
-          mx="3"
+          mx="2"
           defaultChecked={item.itemIsChecked}
           isChecked={item.itemIsChecked}
           colorScheme="brandOrange"
@@ -65,14 +65,20 @@ const ItemCard: FC<IItemCard> = ({ item, deleteItem, currentListId }) => {
         </Box>
 
         <VStack justifyContent="flex-start" textAlign="left" align="left" minWidth="75px">
-          <Heading color="brandBlue.500" fontSize="md" textDecoration={item.itemIsChecked ? "line-through" : "none"}>
+          <Heading
+            isTruncated
+            color="brandBlue.500"
+            fontSize="md"
+            textDecoration={item.itemIsChecked ? "line-through" : "none"}
+            maxWidth="150px"
+          >
             {item.itemName}
           </Heading>
           <Text as="i" fontSize="xs" color="gray.400">
             {item.itemType}
           </Text>
         </VStack>
-
+        <Spacer />
         <QuantityEdit count={item.quantityRequired} onChange={(newQuantity) => updateQuantity(newQuantity)} />
       </HStack>
       <IconButton
