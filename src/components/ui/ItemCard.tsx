@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Box, IconButton, Checkbox, Heading, Flex, VStack, Text, Spacer, HStack } from "@chakra-ui/react";
+import { Box, IconButton, Checkbox, Heading, Flex, VStack, Text, Spacer, HStack, CloseButton } from "@chakra-ui/react";
 import { FaAppleAlt, FaBible, FaBoxOpen, FaSnowflake } from "react-icons/fa";
 import QuantityEdit from "./QuantityEdit";
 import { CloseIcon } from "@chakra-ui/icons";
@@ -44,37 +44,50 @@ const ItemCard: FC<IItemCard> = ({ item, deleteItem, currentListId }) => {
   };
 
   return (
-    <HStack bg={"white"} p={2} rounded="md" boxShadow="xl" minW="250px" align="center" justifyContent="space-around">
-      <Box
-        width="1"
-        height="100%"
-        bg={returnColor(item.itemType)}
-        rounded="sm"
-        color={returnColor(item.itemType)}
-        marginRight="2"
-      >
-        ,
-      </Box>
+    <Box position="relative">
+      <HStack bg={"white"} p={2} rounded="md" boxShadow="xl" minW="250px" align="center" justifyContent="space-around">
+        <Checkbox
+          mx="3"
+          defaultChecked={item.itemIsChecked}
+          isChecked={item.itemIsChecked}
+          colorScheme="brandOrange"
+          onChange={(e) => updateItemIsChecked(e.target.checked)}
+        />
+        <Box
+          width="1"
+          height="100%"
+          bg={returnColor(item.itemType)}
+          rounded="sm"
+          color={returnColor(item.itemType)}
+          marginRight="2"
+        >
+          ,
+        </Box>
 
-      <VStack justifyContent="flex-start" textAlign="left" align="left" minWidth="75px">
-        <Heading color="brandBlue.500" fontSize="md">
-          {item.itemName}
-        </Heading>
-        <Text as="i" fontSize="xs" color="gray.400">
-          {item.itemType}
-        </Text>
-      </VStack>
+        <VStack justifyContent="flex-start" textAlign="left" align="left" minWidth="75px">
+          <Heading color="brandBlue.500" fontSize="md" textDecoration={item.itemIsChecked ? "line-through" : "none"}>
+            {item.itemName}
+          </Heading>
+          <Text as="i" fontSize="xs" color="gray.400">
+            {item.itemType}
+          </Text>
+        </VStack>
 
-      <QuantityEdit count={item.quantityRequired} onChange={(newQuantity) => updateQuantity(newQuantity)} />
-      <Spacer />
-      <Checkbox
-        mr="3"
-        defaultChecked={item.itemIsChecked}
-        isChecked={item.itemIsChecked}
-        colorScheme="brandOrange"
-        onChange={(e) => updateItemIsChecked(e.target.checked)}
+        <QuantityEdit count={item.quantityRequired} onChange={(newQuantity) => updateQuantity(newQuantity)} />
+      </HStack>
+      <IconButton
+        size="xs"
+        color="red.500"
+        bg="red.100"
+        aria-label="Delete item"
+        icon={<CloseIcon />}
+        isRound
+        onClick={() => deleteItem()}
+        position="absolute"
+        top="-2.85"
+        right="-2.85"
       />
-    </HStack>
+    </Box>
   );
 
   // return (

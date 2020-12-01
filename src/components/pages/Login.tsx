@@ -52,14 +52,13 @@ const Login: FC = () => {
             <CloseButton position="absolute" right="8px" top="8px" />
           </Alert>
         )}
-        {fbAuth?.loggedInUser && <div>{fbAuth.loggedInUser.email}</div>}
       </VStack>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <FormControl id="email-address" isRequired>
           <FormLabel>Email address</FormLabel>
           <Input
-            colorScheme="brand"
+            colorScheme="brandGreen"
             name="email"
             ref={register({ required: true })}
             placeholder="Email..."
@@ -70,7 +69,7 @@ const Login: FC = () => {
         <FormControl id="password" isRequired>
           <FormLabel>Password</FormLabel>
           <Input
-            colorScheme="brand"
+            colorScheme="brandGreen"
             name="password"
             ref={register({ required: true })}
             type="password"
@@ -79,7 +78,7 @@ const Login: FC = () => {
           <FormHelperText>{errors.password && <span>Password is required.</span>}</FormHelperText>
         </FormControl>
 
-        <Button colorScheme="brand" isFullWidth type="submit" disabled={isLoading}>
+        <Button colorScheme="brandOrange" isFullWidth type="submit" disabled={isLoading}>
           Login
         </Button>
         <Center mt="1">
