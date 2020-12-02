@@ -31,7 +31,15 @@ const ItemCard: FC<IItemCard> = ({ item, deleteItem, currentListId }) => {
 
   return (
     <Box position="relative">
-      <HStack bg={"white"} p={2} rounded="md" boxShadow="xl" minW="350px" align="center" justifyContent="left">
+      <HStack
+        bg={item.itemIsChecked ? "gray.300" : "white"}
+        p={2}
+        rounded="md"
+        boxShadow="xl"
+        minW="350px"
+        align="center"
+        justifyContent="left"
+      >
         <Checkbox
           mx="2"
           defaultChecked={item.itemIsChecked}
