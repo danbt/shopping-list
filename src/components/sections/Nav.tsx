@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Center, Container, Flex, IconButton, Spacer } from "@chakra-ui/react";
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { FiShoppingCart } from "react-icons/fi";
@@ -18,10 +18,6 @@ const Nav = () => {
       throw new Error();
     }
   };
-
-  useEffect(() => {
-    console.log(appState?.getAvatarSrc());
-  }, []);
 
   return (
     <Center>

@@ -37,7 +37,6 @@ const SignUp: FC = () => {
         setErrorText("");
         setIsLoading(true);
         await fbAuth?.signUpFn(data.email, data.password);
-        console.log(fbAuth?.loggedInUser);
       } catch {
         setErrorText("Could not create user");
       }
@@ -62,6 +61,7 @@ const SignUp: FC = () => {
         <FormControl id="email-address" isRequired>
           <FormLabel>Email address</FormLabel>
           <Input
+            autoComplete="username"
             colorScheme="brandGreen"
             name="email"
             ref={register({ required: true })}
@@ -73,6 +73,7 @@ const SignUp: FC = () => {
         <FormControl id="password" isRequired>
           <FormLabel>Password</FormLabel>
           <Input
+            autoComplete="current-password"
             colorScheme="brandGreen"
             name="password"
             ref={register({ required: true })}
@@ -82,8 +83,9 @@ const SignUp: FC = () => {
           <FormHelperText>{errors.password && <span>Password is required.</span>}</FormHelperText>
         </FormControl>
         <FormControl id="passwordConfirmation" isRequired>
-          <FormLabel>Password</FormLabel>
+          <FormLabel>Password Confirmation</FormLabel>
           <Input
+            autoComplete="current-password"
             colorScheme="brandGreen"
             name="passwordConfirmation"
             ref={register({ required: true })}

@@ -58,6 +58,7 @@ const Login: FC = () => {
         <FormControl id="email-address" isRequired>
           <FormLabel>Email address</FormLabel>
           <Input
+            autoComplete="username"
             colorScheme="brandGreen"
             name="email"
             ref={register({ required: true })}
@@ -69,6 +70,7 @@ const Login: FC = () => {
         <FormControl id="password" isRequired>
           <FormLabel>Password</FormLabel>
           <Input
+            autoComplete="current-password"
             colorScheme="brandGreen"
             name="password"
             ref={register({ required: true })}

@@ -1,35 +1,21 @@
 import React, { FC } from "react";
-import { Box, IconButton, Checkbox, Heading, Flex, VStack, Text, Spacer, HStack, CloseButton } from "@chakra-ui/react";
-import { FaAppleAlt, FaBible, FaBoxOpen, FaSnowflake } from "react-icons/fa";
+import { Box, IconButton, Checkbox, Heading, VStack, Text, Spacer, HStack } from "@chakra-ui/react";
 import QuantityEdit from "./QuantityEdit";
 import { CloseIcon } from "@chakra-ui/icons";
 import { IItemCard, itemType } from "../types/listItem";
 import { databaseRef } from "../../services/firebase";
 
 const ItemCard: FC<IItemCard> = ({ item, deleteItem, currentListId }) => {
-  const returnIcon = (itemType: itemType): JSX.Element => {
-    switch (itemType) {
-      case "Fresh":
-        return <FaAppleAlt />;
-      case "Frozen":
-        return <FaSnowflake />;
-      case "Cupboard":
-        return <FaBoxOpen />;
-      case "Other":
-        return <FaBible />;
-      default:
-        return <FaAppleAlt />;
-    }
-  };
-
   const returnColor = (itemType: itemType): string => {
     switch (itemType) {
       case "Fresh":
-        return "green.200";
+        return "brandGreen.100";
       case "Frozen":
-        return "blue.200";
+        return "brandBlue.100";
       case "Cupboard":
-        return "yellow.200";
+        return "brandYellow.100";
+      case "Other":
+        return "brandRed.100";
       default:
         return "grey.200";
     }

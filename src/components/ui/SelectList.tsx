@@ -48,7 +48,14 @@ const SelectList: FC<{ lists: Partial<IList>[] }> = ({ lists }) => {
           })}
         </Select>
 
-        <IconButton color="red.500" bg="red.100" aria-label="Delete list" icon={<DeleteIcon />} onClick={onOpen} />
+        <IconButton
+          disabled={appState?.getSelectedList() === ""}
+          color="red.500"
+          bg="red.100"
+          aria-label="Delete list"
+          icon={<DeleteIcon />}
+          onClick={onOpen}
+        />
       </HStack>
       <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
