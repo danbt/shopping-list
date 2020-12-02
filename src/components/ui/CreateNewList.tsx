@@ -8,7 +8,12 @@ const CreateNewList: FC<{ createNewList: (newName: string) => void }> = ({ creat
     <HStack p={1} direction="row" spacing="2" align="flex-end" justify="center">
       <Input variant="outline" name="listName" ref={listNameRef} placeholder="create a new list..." />
 
-      <Button variant="solid" onClick={() => createNewList(listNameRef.current?.value ?? "Unset List Name")}>
+      <Button
+        variant="solid"
+        onClick={() => {
+          createNewList(listNameRef.current?.value ?? "Unset List Name");
+        }}
+      >
         +
       </Button>
     </HStack>

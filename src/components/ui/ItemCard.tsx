@@ -79,7 +79,9 @@ const ItemCard: FC<IItemCard> = ({ item, deleteItem, currentListId }) => {
           </Text>
         </VStack>
         <Spacer />
-        <QuantityEdit count={item.quantityRequired} onChange={(newQuantity) => updateQuantity(newQuantity)} />
+        <Box mr="3">
+          <QuantityEdit count={item.quantityRequired} onChange={(newQuantity) => updateQuantity(newQuantity)} />
+        </Box>
       </HStack>
       <IconButton
         size="xs"
